@@ -26,7 +26,7 @@ public class MultiwordJoin {
 	 * 
 	 * @param sentence The sentence which is to be joined
 	 * @param postags Part of Speect tags of the sentence to help joining process
-	 * @return string Multi words joined by underscore character('_')
+	 * @return String Multi words joined by underscore character('_')
 	 * @exception ArrayIndexOutOfBoundsException When the size of sentence is not equal to size of postags, this method throws
 	 * an ArrayIndexOutOfBoundException
 	 * @see ArrayIndexOutOfBoundsException
