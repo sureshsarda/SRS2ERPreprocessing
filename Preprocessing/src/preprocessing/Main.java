@@ -1,5 +1,9 @@
 package preprocessing;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -7,8 +11,8 @@ public class Main {
 		POSTag tag = new POSTag();
 		System.out.println(tag.Tag(test));*/
 		MultiwordJoin mj = new MultiwordJoin();
-		String[] sentence = {"Hello", "Suresh", "Sarda", "How", "Are"};
-		String[] postags = {"AA", "NN", "JJ", "NN", "NN"};
+		List<String> sentence = new ArrayList(Arrays.asList("Hello", "Suresh", "Sarda", "How", "Are"));
+		List<String> postags = new ArrayList(Arrays.asList("AA", "NN", "JJ", "NN", "NN"));
 		mj.JoinMultiwords(sentence, postags);
 		}
 		
