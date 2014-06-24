@@ -47,16 +47,19 @@ public class MultiwordJoin {
 	public String JoinMultiwords(List<String> sentence, List<String> postags) {
 		List<String> processed = new ArrayList<String>();
 		try {
-			for (int i = 0; i < postags.size(); i++) {
-				for (int j = 0; j < notedSequence.size(); i++) {
+			for (int j = 0; j < notedSequence.size(); j++) {
+				for (int i = 0; i < postags.size() - notedSequence.size(); i++) {
 					if (postags.subList(i, i + notedSequence.get(j).size()).hashCode() == sequenceHash[j]) {
 						if (postags.subList(i, i + notedSequence.get(j).size()).equals(notedSequence.get(j))) {
 							/*Match Found*/
 							
 							/*Combine size() number of words*/
 							String word = new String();
-							for (int k = 0; k < notedSequence.size(); k++) {
-								word = word.concat("_").concat(sentence.get(i + k));
+							for (int k = 0; k < notedSequence.get(j).size(); k++) {
+								if (k == 0)
+									word = word.concat(sentence.get(i + k));
+								else
+									word = word.concat("_").concat(sentence.get(i + k));
 							}
 							processed.add(word);
 							/*Increment comaprasion index to next pos word after this sequenc*/
@@ -76,7 +79,7 @@ public class MultiwordJoin {
 		catch (ArrayIndexOutOfBoundsException aioobe) {
 			throw aioobe;
 		}
-		return null;
+		return processed.toString();
 	}
 
 	

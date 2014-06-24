@@ -1,6 +1,12 @@
 package preprocessing;
 
-import edu.stanford.nlp.tagger.maxent.MaxentTagger;
+import java.util.List;
+
+import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.ling.Sentence;
+import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
+import edu.stanford.nlp.trees.Tree;
+
 
 /**
  * <h1> Part of Speech Tagger </h1>
@@ -10,15 +16,21 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
  * @since 2014-06-24
  */
 public class POSTag {
-	MaxentTagger tagger = null;
+	
+	LexicalizedParser lp = null;
 	/**
 	 * This method initializes all models.
 	 * @param None
 	 */
 	public POSTag() {
-		tagger = new MaxentTagger("tagger/english-left3words-distsim.tagger");
+		lp = LexicalizedParser.loadModel("tagger/englishPCFG.ser.gz");
 	}
 	public String Tag(String sentence) {
-		return tagger.tagString(sentence);
+		String[] sent = sentence.split(" ");
+	    List<CoreLabel> rawWords = Sentence.toCoreLabelList(sent);
+		Tree parse = lp.apply(rawWords);
+	    parse.pennPrint();
+	    System.out.println();
+	    return null;
 	}
 }

@@ -1,0 +1,4 @@
+A student has first name and roll number.
+A police station is looked after by a station chief.
+An account number is given to every customer.
+Every customer has a unique customer id.
