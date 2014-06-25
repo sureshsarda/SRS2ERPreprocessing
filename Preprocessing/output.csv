@@ -1,0 +1,10 @@
+A,student,has,first,name,and,roll_number.
+DT,NN,VBZ,JJ,NN,CC,NN
+A,police_station,is,looked,after,by,a,station_chief.
+DT,NN,VBZ,VBN,IN,IN,DT,NN
+An,account_number,is,given,to,every,customer.
+DT,NN,VBZ,VBN,TO,DT,NN
+Every,customer,has,a,unique,customer_id.
+DT,NN,VBZ,DT,JJ,NN
+A,student,has,roll,number,,class_name,and,registration_number.
+DT,NN,VBZ,VBP,JJ,NN,CC,NN

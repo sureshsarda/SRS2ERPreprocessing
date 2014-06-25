@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import csv.CSV;
+
 public class Main {
 
 	public static void main(String[] args) throws IOException {
@@ -23,18 +25,26 @@ public class Main {
 		MultiwordJoin mj = new MultiwordJoin();
 		
 		String cSentence;
+		CSV output = new CSV("output.csv", CSV.EXPORT);
 		while ((cSentence = input.readLine()) != null) {
 			List<String> postags = tag.Tag(cSentence);
 			List<String> sentence  = Arrays.asList(cSentence.split(" "));
 			
-			System.out.println("**New Test Case**");
-			
-			System.out.println(sentence);
+
+			String joined = mj.JoinMultiwords(sentence, postags);
+			System.out.println(joined);
+			postags = tag.Tag(joined);
 			System.out.println(postags);
 			
-			System.out.println(mj.JoinMultiwords(sentence, postags));
+			System.out.println();
+			
+			output.WriteLine(joined);
+			output.WriteLine(postags);
+			
 		
 		}
+		output.CloseStreams();
+		
 		
 
 

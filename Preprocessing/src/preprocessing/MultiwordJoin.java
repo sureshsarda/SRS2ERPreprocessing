@@ -24,7 +24,7 @@ public class MultiwordJoin {
 		 * subsequent sequences will be skipped.
 		 */
 		notedSequence.add(Arrays.asList("NN", "NN"));
-		notedSequence.add(Arrays.asList("JJ", "NN"));
+	//	notedSequence.add(Arrays.asList("JJ", "NN"));
 		
 		/*Calculate hash of each sequence to use in RobinKarp*/
 		sequenceHash = new int[notedSequence.size()];
@@ -70,8 +70,10 @@ public class MultiwordJoin {
 							/*Create a combined word of matched sequence*/
 							String word = new String();
 							for (int k = 0; k < notedSequence.get(j).size(); k++) {
-								if (k == 0)
+								if (k == 0) {
 									word = word.concat(sentence.get(i + k));
+								//	word = Character.toUpperCase(word.charAt(0)) + word.substring(1);
+								}
 								else
 									word = word.concat("_").concat(sentence.get(i + k));
 							}
@@ -92,15 +94,29 @@ public class MultiwordJoin {
 				for (; i < postags.size(); i++) {
 					processed.add(sentence.get(i));
 				}
-				sentence = processed;
-				processed.clear();
+				/*sentence = processed;
+				processed.clear();*/
 			}
 		}
 		catch (ArrayIndexOutOfBoundsException aioobe) {
 			throw aioobe;
 		}
-		return processed.toString();
+		
+		return ConvertToString(processed);
 	}
-
+	private String ConvertToString(List<String> list) {
+		String string = new String();
+		if (list.size() == 0)
+			return null;
+		else	{
+			for (String word : list) {
+				string = string.concat(word).concat(" ");
+			}
+			string.trim();
+			return string;
+		}
+		
+	}
+	
 	
 }
