@@ -1,5 +1,6 @@
 package preprocessing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.stanford.nlp.ling.CoreLabel;
@@ -25,12 +26,15 @@ public class POSTag {
 	public POSTag() {
 		lp = LexicalizedParser.loadModel("tagger/englishPCFG.ser.gz");
 	}
-	public String Tag(String sentence) {
+	public List<String> Tag(String sentence) {
 		String[] sent = sentence.split(" ");
 	    List<CoreLabel> rawWords = Sentence.toCoreLabelList(sent);
 		Tree parse = lp.apply(rawWords);
-	    parse.pennPrint();
-	    System.out.println();
-	    return null;
+		List<CoreLabel> tagged = parse.taggedLabeledYield();
+		List<String> tags = new ArrayList<String>();
+		for (CoreLabel token : tagged) {
+			tags.add(token.toString().split("-")[0]);
+		}
+	    return tags;
 	}
 }

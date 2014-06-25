@@ -20,24 +20,24 @@ public class Main {
 		}
 		
 		POSTag tag = new POSTag();
+		MultiwordJoin mj = new MultiwordJoin();
+		
 		String cSentence;
 		while ((cSentence = input.readLine()) != null) {
-			if (cSentence.contains("_")) {
-				System.out.println("Error: Sentence contains underscore character. Cannot continue.");
-				continue;
-			}
-			String tagged = tag.Tag(cSentence);
-			List<String> sentence = new ArrayList<String>(Arrays.asList(cSentence.split(" ")));
+			List<String> postags = tag.Tag(cSentence);
+			List<String> sentence  = Arrays.asList(cSentence.split(" "));
 			
+			System.out.println("**New Test Case**");
+			
+			System.out.println(sentence);
+			System.out.println(postags);
+			
+			System.out.println(mj.JoinMultiwords(sentence, postags));
 		
 		}
 		
-		
-		
-		MultiwordJoin mj = new MultiwordJoin();
-		List<String> sentence = new ArrayList<String>(Arrays.asList("Hello", "Suresh", "Sarda", "How", "Are"));
-		List<String> postags = new ArrayList<String>(Arrays.asList("AA", "NN", "JJ", "NN", "NN"));
-		System.out.println(mj.JoinMultiwords(sentence, postags));
+
+
 	}
 	
 		

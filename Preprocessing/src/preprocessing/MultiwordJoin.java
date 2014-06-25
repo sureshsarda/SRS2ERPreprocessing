@@ -24,7 +24,7 @@ public class MultiwordJoin {
 		 * subsequent sequences will be skipped.
 		 */
 		notedSequence.add(Arrays.asList("NN", "NN"));
-		/*notedSequence.add(Arrays.asList("JJ", "NN"));*/
+		notedSequence.add(Arrays.asList("JJ", "NN"));
 		
 		/*Calculate hash of each sequence to use in RobinKarp*/
 		sequenceHash = new int[notedSequence.size()];
@@ -47,13 +47,27 @@ public class MultiwordJoin {
 	public String JoinMultiwords(List<String> sentence, List<String> postags) {
 		List<String> processed = new ArrayList<String>();
 		try {
+			/*
+			 * The following piece of code checks every sequence on the sentence.
+			 * Loops through every sequence and for that particular sequence, checks if that sequence is found in sentence
+			 * For optimization purpose, instead of checking strings, first hash value is checked and then if matched, strings are checked
+			 * 		If a match is found, a new word(combined) of all the words from the sentence is created.
+			 * 		add the created word into processed list which contains the new sentence
+			 * In either case of mismatch, words without modification is added to processed array
+			 * 
+			 * The above loop over sentence leaves last (n - 1) words where n is the size of testSequence, and therefore another loop
+			 * is used to append all those unprocessed words.
+			 */
 			for (int j = 0; j < notedSequence.size(); j++) {
-				for (int i = 0; i < postags.size() - notedSequence.size(); i++) {
+				int i;
+				for (i = 0; i < postags.size() - notedSequence.get(j).size() + 1; i++) {
+					/*Check Hash values*/
 					if (postags.subList(i, i + notedSequence.get(j).size()).hashCode() == sequenceHash[j]) {
+						/*Hash values are same, now confirm by checking actual strings*/
 						if (postags.subList(i, i + notedSequence.get(j).size()).equals(notedSequence.get(j))) {
 							/*Match Found*/
 							
-							/*Combine size() number of words*/
+							/*Create a combined word of matched sequence*/
 							String word = new String();
 							for (int k = 0; k < notedSequence.get(j).size(); k++) {
 								if (k == 0)
@@ -63,7 +77,7 @@ public class MultiwordJoin {
 							}
 							processed.add(word);
 							/*Increment comaprasion index to next pos word after this sequenc*/
-							i = i + notedSequence.size() - 1;
+							i = i + notedSequence.get(j).size() - 1;
 						}
 						else {
 							processed.add(sentence.get(i));
@@ -74,6 +88,12 @@ public class MultiwordJoin {
 					}
 				
 				}
+				/*Append unprocessed words to list*/
+				for (; i < postags.size(); i++) {
+					processed.add(sentence.get(i));
+				}
+				sentence = processed;
+				processed.clear();
 			}
 		}
 		catch (ArrayIndexOutOfBoundsException aioobe) {
