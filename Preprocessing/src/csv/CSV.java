@@ -84,5 +84,11 @@ public class CSV {
 		if (writer != null)
 			writer.close();
 	}
+	public void SetKeywordEncloser(String encloser) {
+		this.enclose = encloser;
+	}
+	public void SetKeywordSeparator(String separator) {
+		this.separator = separator;
+	}
 
 }
